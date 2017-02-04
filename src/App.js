@@ -19,11 +19,15 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h2>GUC Student Portal</h2>
         </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <input type="text" onChange={(event) => { this.setState({ username: event.target.value }) } } />
-        <input type="text" onChange={(event) => { this.setState({ password: event.target.value }) } } />
+        <div>
+          <h3>Username:</h3>
+          <input type="text" onChange={(event) => { this.setState({ username: event.target.value }) } } />
+          <h3>Password:</h3>
+          <input type="password" onChange={(event) => { this.setState({ password: event.target.value }) } } />
+          <br />
+          <br />
+          <button onClick={() => {/*TODO: Perform HTTP request*/ } }>Log in</button>
+        </div>
       </div>
     );
   }
