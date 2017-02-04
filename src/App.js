@@ -4,6 +4,14 @@ import logo from './guc-logo.png';
 import './App.css';
 
 class App extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      authorized: false
+    };
+  }
+
   render() {
     return (
       <div className="App">
