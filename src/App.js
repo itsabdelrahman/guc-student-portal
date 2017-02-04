@@ -3,6 +3,15 @@ import logo from './guc-logo.png';
 import './App.css';
 
 class App extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      username: '',
+      password: ''
+    };
+  }
+
   render() {
     return (
       <div className="App">
@@ -13,6 +22,8 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
+        <input type="text" onChange={(event) => { this.setState({ username: event.target.value }) } } />
+        <input type="text" onChange={(event) => { this.setState({ password: event.target.value }) } } />
       </div>
     );
   }
