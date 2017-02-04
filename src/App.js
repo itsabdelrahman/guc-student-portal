@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Login from './Login';
+import Midterms from './Midterms';
 import logo from './guc-logo.png';
 import './App.css';
 
@@ -20,6 +21,7 @@ class App extends Component {
           <h2>GUC Student Portal</h2>
         </div>
         <Login />
+        <Midterms />
       </div>
     );
   }

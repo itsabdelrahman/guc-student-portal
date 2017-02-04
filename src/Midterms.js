@@ -25,20 +25,23 @@ class Midterms extends Component {
       .catch(err => console.error(err));
   }
 
+  componentWillMount() {
+    this.fetchMidterms().then(({ data }) => {
+        this.setState({
+            midterms: data
+        });
+    });
+  }
+
   render() {
     return (
       <div>
         <h3>Midterms grades:</h3>
+        {this.state.midterms.map(({ course, percentage }, index) => (
+            <h4 key={index}>{course}: {percentage}</h4>
+        ))}
       </div>
     );
-  }
-
-  componentDidMount() {
-    this.fetchMidterms().then(json => {
-        this.setState({
-            midterms: json.data
-        });
-    });
   }
 }
 
