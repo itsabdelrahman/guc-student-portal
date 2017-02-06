@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Router, Route, Link, IndexRoute, hashHistory, browserHistory } from 'react-router';
+import { Router, Route, browserHistory } from 'react-router';
 import Login from './Login';
 import Midterms from './Midterms';
 import logo from './guc-logo.png';
