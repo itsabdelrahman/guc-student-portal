@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Router, Route, Link, IndexRoute, hashHistory, browserHistory } from 'react-router';
 import Login from './Login';
 import Midterms from './Midterms';
 import logo from './guc-logo.png';
@@ -20,8 +21,10 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h2>GUC Student Portal</h2>
         </div>
-        <Login />
-        <Midterms />
+        <Router history={hashHistory}>
+          <Route path='/login' component={Login} />
+          <Route path='/midterms' component={Midterms} />
+        </Router>
       </div>
     );
   }
