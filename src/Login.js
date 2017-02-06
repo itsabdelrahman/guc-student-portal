@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import fetch from 'isomorphic-fetch';
+import { Link } from 'react-router';
 
 class Login extends Component {
   constructor() {
@@ -34,7 +35,7 @@ class Login extends Component {
         <input type="password" onChange={event => this.setState({ password: event.target.value })} />
         <br />
         <br />
-        <button onClick={() => this.login()}>Log in</button>
+        <Link to="/midterms"><button onClick={() => this.login()}>Log in</button></Link>
       </div>
     );
   }
