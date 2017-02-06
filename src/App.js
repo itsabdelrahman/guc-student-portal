@@ -22,7 +22,7 @@ class App extends Component {
           <h2>GUC Student Portal</h2>
         </div>
         <Router history={browserHistory}>
-          <Route path='/login' component={Login} />
+          <Route path='/' component={Login} />
           <Route path='/midterms' component={Midterms} />
         </Router>
       </div>
