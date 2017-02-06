@@ -21,7 +21,7 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h2>GUC Student Portal</h2>
         </div>
-        <Router history={hashHistory}>
+        <Router history={browserHistory}>
           <Route path='/login' component={Login} />
           <Route path='/midterms' component={Midterms} />
         </Router>
