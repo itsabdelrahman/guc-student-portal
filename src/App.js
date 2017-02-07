@@ -10,8 +10,16 @@ class App extends Component {
     super();
 
     this.state = {
-      authorized: false
+      username: '',
+      password: ''
     };
+  }
+
+  setCredentials = ({ username, password }) => {
+    this.setState({
+      username,
+      password
+    });
   }
 
   render() {
@@ -22,7 +30,7 @@ class App extends Component {
           <h2>GUC Student Portal</h2>
         </div>
         <Router history={browserHistory}>
-          <Route path='/' component={Login} />
+          <Route path='/' component={Login} setCredentials={this.setCredentials} />
           <Route path='/midterms' component={Midterms} />
         </Router>
       </div>

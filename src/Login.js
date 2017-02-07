@@ -22,7 +22,9 @@ class Login extends Component {
 
     fetch(loginUrl, options)
       .then(res => res.json())
-      .then(json => alert(json.data.authorized))
+      .then(json => {
+        if (json.data.authorized) this.props.route.setCredentials(this.state);
+      })
       .catch(err => console.error(err));
   }
 
