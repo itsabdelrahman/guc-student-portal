@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import fetch from 'isomorphic-fetch';
-import { browserHistory } from 'react-router';
 
 class Login extends Component {
   constructor(props) {
@@ -25,7 +24,7 @@ class Login extends Component {
       .then(json => {
         if (json.data.authorized) {
           this.props.route.setCredentials(this.state);
-          browserHistory.push('/midterms');
+          this.props.router.push('/midterms');
         }
       })
       .catch(err => console.error(err));
