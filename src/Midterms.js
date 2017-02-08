@@ -2,13 +2,11 @@ import React, { Component } from 'react';
 import fetch from 'isomorphic-fetch';
 
 class Midterms extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
-        username: '',
-        password: '',
-        midterms: []
+      midterms: []
     }
   }
 
@@ -16,7 +14,7 @@ class Midterms extends Component {
     const midtermsUrl = 'http://guc-api.herokuapp.com/api/midterms';
     const options = {
       headers: {
-        'Authorization': `Basic ${btoa(this.state.username.concat(':').concat(this.state.password))}`
+        'Authorization': `Basic ${btoa(this.props.route.credentials.username.concat(':').concat(this.props.route.credentials.password))}`
       }
     };
 
@@ -27,9 +25,9 @@ class Midterms extends Component {
 
   componentWillMount() {
     this.fetchMidterms().then(({ data }) => {
-        this.setState({
-            midterms: data
-        });
+      this.setState({
+        midterms: data
+      });
     });
   }
 
@@ -38,7 +36,7 @@ class Midterms extends Component {
       <div>
         <h3>Midterms grades:</h3>
         {this.state.midterms.map(({ course, percentage }, index) => (
-            <h4 key={index}>{course}: {percentage}</h4>
+          <h4 key={index}>{course}: {percentage}</h4>
         ))}
       </div>
     );

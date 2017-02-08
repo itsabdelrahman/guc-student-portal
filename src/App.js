@@ -31,7 +31,7 @@ class App extends Component {
         </div>
         <Router history={browserHistory}>
           <Route path='/' component={Login} setCredentials={this.setCredentials} />
-          <Route path='/midterms' component={Midterms} />
+          <Route path='/midterms' component={Midterms} credentials={{ username: this.state.username, password: this.state.password }} />
         </Router>
       </div>
     );

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import fetch from 'isomorphic-fetch';
-import { Link } from 'react-router';
+import { browserHistory } from 'react-router';
 
 class Login extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       username: '',
@@ -23,7 +23,10 @@ class Login extends Component {
     fetch(loginUrl, options)
       .then(res => res.json())
       .then(json => {
-        if (json.data.authorized) this.props.route.setCredentials(this.state);
+        if (json.data.authorized) {
+          this.props.route.setCredentials(this.state);
+          browserHistory.push('/midterms');
+        }
       })
       .catch(err => console.error(err));
   }
@@ -37,7 +40,7 @@ class Login extends Component {
         <input type="password" onChange={event => this.setState({ password: event.target.value })} />
         <br />
         <br />
-        <Link to="/midterms"><button onClick={this.login}>Log in</button></Link>
+        <button onClick={this.login}>Log in</button>
       </div>
     );
   }
