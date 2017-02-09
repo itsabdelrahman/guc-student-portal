@@ -12,18 +12,18 @@ class Login extends Component {
   }
 
   login = () => {
-    const loginUrl = 'http://guc-api.herokuapp.com/api/login';
+    const url = 'http://guc-api.herokuapp.com/api/login';
     const options = {
       headers: {
         'Authorization': `Basic ${btoa(this.state.username.concat(':').concat(this.state.password))}`
       }
     };
 
-    fetch(loginUrl, options)
+    fetch(url, options)
       .then(res => res.json())
       .then(json => {
         if (json.data.authorized) {
-          this.props.route.setCredentials(this.state);
+          this.props.setCredentials(this.state);
           this.props.router.push('/midterms');
         }
       })

@@ -11,19 +11,19 @@ class Midterms extends Component {
   }
 
   fetchMidterms = () => {
-    const midtermsUrl = 'http://guc-api.herokuapp.com/api/midterms';
+    const url = 'http://guc-api.herokuapp.com/api/midterms';
     const options = {
       headers: {
-        'Authorization': `Basic ${btoa(this.props.route.credentials.username.concat(':').concat(this.props.route.credentials.password))}`
+        'Authorization': `Basic ${btoa(this.props.credentials.username.concat(':').concat(this.props.credentials.password))}`
       }
     };
 
-    return fetch(midtermsUrl, options)
+    return fetch(url, options)
       .then(res => res.json())
       .catch(err => console.error(err));
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.fetchMidterms().then(({ data }) => {
       this.setState({
         midterms: data

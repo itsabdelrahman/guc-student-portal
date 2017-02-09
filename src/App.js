@@ -30,8 +30,8 @@ class App extends Component {
           <h2>GUC Student Portal</h2>
         </div>
         <Router history={browserHistory}>
-          <Route path='/' component={Login} setCredentials={this.setCredentials} />
-          <Route path='/midterms' component={Midterms} credentials={{ username: this.state.username, password: this.state.password }} />
+          <Route path='/' component={(props) => <Login setCredentials={this.setCredentials} {...props} />} />
+          <Route path='/midterms' component={(props) => <Midterms credentials={this.state} {...props} />} />
         </Router>
       </div>
     );
