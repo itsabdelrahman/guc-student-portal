@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import fetch from 'isomorphic-fetch';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
 
 class Login extends Component {
   constructor(props) {
@@ -33,13 +35,21 @@ class Login extends Component {
   render() {
     return (
       <div>
-        <h3>Username:</h3>
-        <input type="text" onChange={event => this.setState({ username: event.target.value })} />
-        <h3>Password:</h3>
-        <input type="password" onChange={event => this.setState({ password: event.target.value })} />
+        <TextField
+          floatingLabelText="Username"
+          hintText="john.doe"
+          onChange={event => this.setState({ username: event.target.value })}
+          />
+        <br />
+        <TextField
+          type="password"
+          floatingLabelText="Password"
+          hintText="12345"
+          onChange={event => this.setState({ password: event.target.value })}
+          />
         <br />
         <br />
-        <button onClick={this.login}>Log in</button>
+        <RaisedButton primary label="Login" onClick={this.login} />
       </div>
     );
   }

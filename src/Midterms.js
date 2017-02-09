@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import fetch from 'isomorphic-fetch';
+import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 
 class Midterms extends Component {
   constructor(props) {
@@ -33,12 +34,24 @@ class Midterms extends Component {
 
   render() {
     return (
-      <div>
-        <h3>Midterms grades:</h3>
-        {this.state.midterms.map(({ course, percentage }, index) => (
-          <h4 key={index}>{course}: {percentage}</h4>
-        ))}
-      </div>
+      <Table>
+        <TableHeader
+          displaySelectAll={false}>
+          <TableRow>
+            <TableHeaderColumn>Course</TableHeaderColumn>
+            <TableHeaderColumn>Percentage</TableHeaderColumn>
+          </TableRow>
+        </TableHeader>
+        <TableBody
+          displayRowCheckbox={false}>
+          {this.state.midterms.map(({ course, percentage }, index) => (
+            <TableRow key={index}>
+              <TableRowColumn>{course}</TableRowColumn>
+              <TableRowColumn>{percentage}</TableRowColumn>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
     );
   }
 }
