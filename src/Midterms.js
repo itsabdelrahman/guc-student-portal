@@ -1,17 +1,23 @@
 import React, { Component } from 'react';
 import fetch from 'isomorphic-fetch';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
+import CircularProgress from 'material-ui/CircularProgress';
 
 class Midterms extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      midterms: []
+      midterms: [],
+      loading: false
     }
   }
 
   fetchMidterms = () => {
+    this.setState({
+      loading: true
+    });
+
     const url = 'http://guc-api.herokuapp.com/api/midterms';
     const options = {
       headers: {
@@ -27,7 +33,8 @@ class Midterms extends Component {
   componentDidMount() {
     this.fetchMidterms().then(({ data }) => {
       this.setState({
-        midterms: data
+        midterms: data,
+        loading: false
       });
     });
   }
@@ -44,6 +51,7 @@ class Midterms extends Component {
         </TableHeader>
         <TableBody
           displayRowCheckbox={false}>
+          {this.state.loading ? <CircularProgress /> : null}
           {this.state.midterms.map(({ course, percentage }, index) => (
             <TableRow key={index}>
               <TableRowColumn>{course}</TableRowColumn>
