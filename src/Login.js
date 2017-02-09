@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import fetch from 'isomorphic-fetch';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+import CircularProgress from 'material-ui/CircularProgress';
 
 class Login extends Component {
   constructor(props) {
@@ -9,11 +10,16 @@ class Login extends Component {
 
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      loading: false
     };
   }
 
   login = () => {
+    this.setState({
+      loading: true
+    });
+
     const url = 'http://guc-api.herokuapp.com/api/login';
     const options = {
       headers: {
@@ -50,6 +56,9 @@ class Login extends Component {
         <br />
         <br />
         <RaisedButton primary label="Login" onClick={this.login} />
+        <br />
+        <br />
+        {this.state.loading ? <CircularProgress /> : null}
       </div>
     );
   }
