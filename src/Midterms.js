@@ -79,7 +79,7 @@ class Midterms extends Component {
                 {this.state.midterms.map(({ course, percentage }, index) => (
                   <TableRow key={index}>
                     <TableRowColumn>{course}</TableRowColumn>
-                    <TableRowColumn>{percentage}</TableRowColumn>
+                    <TableRowColumn>{percentage}%</TableRowColumn>
                   </TableRow>
                 ))}
               </TableBody>
