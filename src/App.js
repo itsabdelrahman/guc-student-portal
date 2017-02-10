@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Router, Route, browserHistory } from 'react-router';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 import Login from './Login';
 import Midterms from './Midterms';
 import logo from './guc-logo.png';
@@ -14,6 +15,8 @@ class App extends Component {
       username: '',
       password: ''
     };
+
+    injectTapEventPlugin();
   }
 
   setCredentials = ({ username, password }) => {
