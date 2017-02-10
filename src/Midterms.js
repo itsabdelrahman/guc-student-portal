@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import fetch from 'isomorphic-fetch';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 import CircularProgress from 'material-ui/CircularProgress';
+import Snackbar from 'material-ui/Snackbar';
 
 class Midterms extends Component {
   constructor(props) {
@@ -9,7 +10,8 @@ class Midterms extends Component {
 
     this.state = {
       midterms: [],
-      loading: false
+      loading: false,
+      open: true
     }
   }
 
@@ -41,25 +43,31 @@ class Midterms extends Component {
 
   render() {
     return (
-      <Table>
-        <TableHeader
-          displaySelectAll={false}>
-          <TableRow>
-            <TableHeaderColumn>Course</TableHeaderColumn>
-            <TableHeaderColumn>Percentage</TableHeaderColumn>
-          </TableRow>
-        </TableHeader>
-        <TableBody
-          displayRowCheckbox={false}>
-          {this.state.loading ? <CircularProgress /> : null}
-          {this.state.midterms.map(({ course, percentage }, index) => (
-            <TableRow key={index}>
-              <TableRowColumn>{course}</TableRowColumn>
-              <TableRowColumn>{percentage}</TableRowColumn>
+      <div>
+        <Table>
+          <TableHeader
+            displaySelectAll={false}>
+            <TableRow>
+              <TableHeaderColumn>Course</TableHeaderColumn>
+              <TableHeaderColumn>Percentage</TableHeaderColumn>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHeader>
+          <TableBody
+            displayRowCheckbox={false}>
+            {this.state.loading ? <CircularProgress /> : null}
+            {this.state.midterms.map(({ course, percentage }, index) => (
+              <TableRow key={index}>
+                <TableRowColumn>{course}</TableRowColumn>
+                <TableRowColumn>{percentage}</TableRowColumn>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+        <Snackbar
+          open={this.state.open}
+          message={'Welcome, ' + this.props.credentials.username + '!'}
+          autoHideDuration={4000} />
+      </div>
     );
   }
 }
