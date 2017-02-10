@@ -49,6 +49,12 @@ class Midterms extends Component {
     });
   };
 
+  handleRequestClose = () => {
+    this.setState({
+      open: false,
+    });
+  };
+
   render() {
     return (
       <div>
@@ -89,7 +95,8 @@ class Midterms extends Component {
         <Snackbar
           open={this.state.open}
           message={'Welcome, ' + this.props.credentials.username + '!'}
-          autoHideDuration={4000} />
+          autoHideDuration={4000}
+          onRequestClose={this.handleRequestClose} />
       </div>
     );
   }
