@@ -1,26 +1,41 @@
 import React, { Component } from 'react';
 import fetch from 'isomorphic-fetch';
+import { Tabs, Tab } from 'material-ui/Tabs';
+import Snackbar from 'material-ui/Snackbar';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 import CircularProgress from 'material-ui/CircularProgress';
-import Snackbar from 'material-ui/Snackbar';
-import { Tabs, Tab } from 'material-ui/Tabs';
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      midterms: [],
-      loading: false,
-      open: true,
-      value: 'b'
+      data: {
+        loading: false,
+        midterms: []
+      },
+      tabs: {
+        value: 'MIDTERMS'
+      },
+      snackbar: {
+        open: true
+      }
     }
   }
 
-  fetchMidterms = () => {
-    this.setState({
-      loading: true
+  componentDidMount() {
+    this.fetchMidterms().then(({ data }) => {
+      this.setState({
+        data: {
+          loading: false,
+          midterms: data
+        }
+      });
     });
+  }
+
+  fetchMidterms = () => {
+    this.setState({ data: { loading: true } });
 
     const url = 'http://guc-api.herokuapp.com/api/midterms';
     const options = {
@@ -34,37 +49,24 @@ class Dashboard extends Component {
       .catch(err => console.error(err));
   }
 
-  componentDidMount() {
-    this.fetchMidterms().then(({ data }) => {
-      this.setState({
-        midterms: data,
-        loading: false
-      });
-    });
-  }
-
-  handleChange = (value) => {
-    this.setState({
-      value: value,
-    });
+  handleTabChange = (value) => {
+    this.setState({ tabs: { value } });
   };
 
-  handleRequestClose = () => {
-    this.setState({
-      open: false,
-    });
+  handleSnackbarClose = () => {
+    this.setState({ snackbar: { open: false } });
   };
 
   render() {
     return (
       <div>
         <Tabs
-          value={this.state.value}
-          onChange={this.handleChange}>
-          <Tab label="COURSEWORK" value="a">
-            <h1>Hi</h1>
+          value={this.state.tabs.value}
+          onChange={this.handleTabChange}>
+          <Tab label="COURSEWORK" value="COURSEWORK">
+            <h2>Coursework</h2>
           </Tab>
-          <Tab label="MIDTERMS" value="b">
+          <Tab label="MIDTERMS" value="MIDTERMS">
             <Table>
               <TableHeader
                 displaySelectAll={false}>
@@ -75,8 +77,8 @@ class Dashboard extends Component {
               </TableHeader>
               <TableBody
                 displayRowCheckbox={false}>
-                {this.state.loading ? <CircularProgress /> : null}
-                {this.state.midterms.map(({ course, percentage }, index) => (
+                {this.state.data.loading ? <CircularProgress /> : null}
+                {this.state.data.midterms.map(({ course, percentage }, index) => (
                   <TableRow key={index}>
                     <TableRowColumn>{course}</TableRowColumn>
                     <TableRowColumn>{percentage}%</TableRowColumn>
@@ -85,18 +87,18 @@ class Dashboard extends Component {
               </TableBody>
             </Table>
           </Tab>
-          <Tab label="ATTENDANCE" value="c">
-            <h1>Sup</h1>
+          <Tab label="ATTENDANCE" value="ATTENDANCE">
+            <h2>Attendance</h2>
           </Tab>
-          <Tab label="EXAMS SCHEDULE" value="d">
-            <h1>Yoo</h1>
+          <Tab label="EXAMS" value="EXAMS">
+            <h2>Exams</h2>
           </Tab>
         </Tabs>
         <Snackbar
-          open={this.state.open}
+          open={this.state.snackbar.open}
           message={'Welcome, ' + this.props.credentials.username + '!'}
           autoHideDuration={4000}
-          onRequestClose={this.handleRequestClose} />
+          onRequestClose={this.handleSnackbarClose} />
       </div>
     );
   }

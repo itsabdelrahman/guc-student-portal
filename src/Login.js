@@ -9,21 +9,25 @@ class Login extends Component {
     super(props);
 
     this.state = {
-      username: '',
-      password: '',
-      loading: false
+      credentials: {
+        username: '',
+        password: '',
+      },
+      data: {
+        loading: false
+      }
     };
   }
 
   login = () => {
-    this.setState({
-      loading: true
-    });
+    this.setState({ data: { loading: true } });
+
+    console.log(this.state)
 
     const url = 'http://guc-api.herokuapp.com/api/login';
     const options = {
       headers: {
-        'Authorization': `Basic ${btoa(this.state.username.concat(':').concat(this.state.password))}`
+        'Authorization': `Basic ${btoa(this.state.credentials.username.concat(':').concat(this.state.credentials.password))}`
       }
     };
 
@@ -41,24 +45,29 @@ class Login extends Component {
   render() {
     return (
       <div>
-        <TextField
-          floatingLabelText="Username"
-          hintText="john.doe"
-          onChange={event => this.setState({ username: event.target.value })}
-          />
+        <div>
+          <TextField
+            floatingLabelText="Username"
+            hintText="john.doe"
+            onChange={event => this.setState({ credentials: { username: event.target.value } })}
+            />
+        </div>
+        <div>
+          <TextField
+            type="password"
+            floatingLabelText="Password"
+            hintText="12345"
+            onChange={event => this.setState({ credentials: { password: event.target.value } })}
+            />
+        </div>
         <br />
-        <TextField
-          type="password"
-          floatingLabelText="Password"
-          hintText="12345"
-          onChange={event => this.setState({ password: event.target.value })}
-          />
+        <div>
+          <RaisedButton primary label="Login" onClick={this.login} />
+        </div>
         <br />
-        <br />
-        <RaisedButton primary label="Login" onClick={this.login} />
-        <br />
-        <br />
-        {this.state.loading ? <CircularProgress /> : null}
+        <div>
+          {this.state.data.loading ? <CircularProgress /> : null}
+        </div>
       </div>
     );
   }

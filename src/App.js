@@ -12,18 +12,17 @@ class App extends Component {
     super();
 
     this.state = {
-      username: '',
-      password: ''
+      credentials: {
+        username: '',
+        password: ''
+      }
     };
 
     injectTapEventPlugin();
   }
 
-  setCredentials = ({ username, password }) => {
-    this.setState({
-      username,
-      password
-    });
+  setCredentials = (credentials) => {
+    this.setState({ credentials });
   }
 
   render() {
@@ -36,7 +35,7 @@ class App extends Component {
           </div>
           <Router history={browserHistory}>
             <Route path='/' component={(props) => <Login setCredentials={this.setCredentials} {...props} />} />
-            <Route path='/dashboard' component={(props) => <Dashboard credentials={this.state} {...props} />} />
+            <Route path='/dashboard' component={(props) => <Dashboard credentials={this.state.credentials} {...props} />} />
           </Router>
         </div>
       </MuiThemeProvider>
