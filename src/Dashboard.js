@@ -5,7 +5,7 @@ import CircularProgress from 'material-ui/CircularProgress';
 import Snackbar from 'material-ui/Snackbar';
 import { Tabs, Tab } from 'material-ui/Tabs';
 
-class Midterms extends Component {
+class Dashboard extends Component {
   constructor(props) {
     super(props);
 
@@ -102,4 +102,4 @@ class Midterms extends Component {
   }
 }
 
-export default Midterms;
+export default Dashboard;

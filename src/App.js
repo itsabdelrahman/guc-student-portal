@@ -3,7 +3,7 @@ import { Router, Route, browserHistory } from 'react-router';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import Login from './Login';
-import Midterms from './Midterms';
+import Dashboard from './Dashboard';
 import logo from './guc-logo.png';
 import './App.css';
 
@@ -36,7 +36,7 @@ class App extends Component {
           </div>
           <Router history={browserHistory}>
             <Route path='/' component={(props) => <Login setCredentials={this.setCredentials} {...props} />} />
-            <Route path='/midterms' component={(props) => <Midterms credentials={this.state} {...props} />} />
+            <Route path='/dashboard' component={(props) => <Dashboard credentials={this.state} {...props} />} />
           </Router>
         </div>
       </MuiThemeProvider>

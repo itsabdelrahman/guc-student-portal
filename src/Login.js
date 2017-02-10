@@ -32,7 +32,7 @@ class Login extends Component {
       .then(json => {
         if (json.data.authorized) {
           this.props.setCredentials(this.state);
-          this.props.router.push('/midterms');
+          this.props.router.push('/dashboard');
         }
       })
       .catch(err => console.error(err));
