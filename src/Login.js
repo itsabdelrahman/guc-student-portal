@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import fetch from 'isomorphic-fetch';
+import { merge } from 'lodash';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import CircularProgress from 'material-ui/CircularProgress';
@@ -19,6 +20,10 @@ class Login extends Component {
     };
   }
 
+  setStateRecursive = (nextState) => {
+    this.setState(merge(this.state, nextState));
+  }
+
   login = () => {
     this.setState({ data: { loading: true } });
 
@@ -35,7 +40,7 @@ class Login extends Component {
       .then(res => res.json())
       .then(json => {
         if (json.data.authorized) {
-          this.props.setCredentials(this.state);
+          this.props.setCredentials(this.state.credentials);
           this.props.router.push('/dashboard');
         }
       })
@@ -49,7 +54,7 @@ class Login extends Component {
           <TextField
             floatingLabelText="Username"
             hintText="john.doe"
-            onChange={event => this.setState({ credentials: { username: event.target.value } })}
+            onChange={event => this.setStateRecursive({ credentials: { username: event.target.value } })}
             />
         </div>
         <div>
@@ -57,7 +62,7 @@ class Login extends Component {
             type="password"
             floatingLabelText="Password"
             hintText="12345"
-            onChange={event => this.setState({ credentials: { password: event.target.value } })}
+            onChange={event => this.setStateRecursive({ credentials: { password: event.target.value } })}
             />
         </div>
         <br />

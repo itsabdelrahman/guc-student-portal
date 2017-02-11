@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import fetch from 'isomorphic-fetch';
+import { merge } from 'lodash';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import Snackbar from 'material-ui/Snackbar';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
@@ -34,8 +35,12 @@ class Dashboard extends Component {
     });
   }
 
+  setStateRecursive = (nextState) => {
+    this.setState(merge(this.state, nextState));
+  }
+
   fetchMidterms = () => {
-    this.setState({ data: { loading: true } });
+    this.setStateRecursive({ data: { loading: true } });
 
     const url = 'http://guc-api.herokuapp.com/api/midterms';
     const options = {
