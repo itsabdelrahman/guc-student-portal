@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import Snackbar from 'material-ui/Snackbar';
+import Coursework from './Coursework';
 import Midterms from './Midterms';
+import Attendance from './Attendance';
+import Exams from './Exams';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -34,16 +37,16 @@ class Dashboard extends Component {
             onChange={this.handleTabChange}
             >
             <Tab label="COURSEWORK" value="COURSEWORK">
-              <h2>Coursework</h2>
+              <Coursework credentials={this.props.credentials} />
             </Tab>
             <Tab label="MIDTERMS" value="MIDTERMS">
               <Midterms credentials={this.props.credentials} />
             </Tab>
             <Tab label="ATTENDANCE" value="ATTENDANCE">
-              <h2>Attendance</h2>
+              <Attendance credentials={this.props.credentials} />
             </Tab>
             <Tab label="EXAMS" value="EXAMS">
-              <h2>Exams</h2>
+              <Exams credentials={this.props.credentials} />
             </Tab>
           </Tabs>
         </div>
@@ -51,7 +54,7 @@ class Dashboard extends Component {
           <Snackbar
             open={this.state.snackbar.open}
             message={'Welcome, ' + this.props.credentials.username + '!'}
-            autoHideDuration={4000}
+            autoHideDuration={5000}
             onRequestClose={this.handleSnackbarClose}
             />
         </div>
