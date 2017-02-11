@@ -12,7 +12,7 @@ class Dashboard extends Component {
 
     this.state = {
       tabs: {
-        value: 'MIDTERMS'
+        value: 'COURSEWORK'
       },
       snackbar: {
         open: true
