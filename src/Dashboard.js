@@ -1,19 +1,13 @@
 import React, { Component } from 'react';
-import fetch from 'isomorphic-fetch';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import Snackbar from 'material-ui/Snackbar';
-import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
-import CircularProgress from 'material-ui/CircularProgress';
+import Midterms from './Midterms';
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      data: {
-        loading: false,
-        midterms: []
-      },
       tabs: {
         value: 'MIDTERMS'
       },
@@ -21,32 +15,6 @@ class Dashboard extends Component {
         open: true
       }
     }
-  }
-
-  componentDidMount() {
-    this.fetchMidterms().then(({ data }) => {
-      this.setState({
-        data: {
-          loading: false,
-          midterms: data
-        }
-      });
-    });
-  }
-
-  fetchMidterms = () => {
-    this.setState({ data: { ...this.state.data, loading: true } });
-
-    const url = 'http://guc-api.herokuapp.com/api/midterms';
-    const options = {
-      headers: {
-        'Authorization': `Basic ${btoa(this.props.credentials.username.concat(':').concat(this.props.credentials.password))}`
-      }
-    };
-
-    return fetch(url, options)
-      .then(res => res.json())
-      .catch(err => console.error(err));
   }
 
   handleTabChange = (value) => {
@@ -69,22 +37,7 @@ class Dashboard extends Component {
               <h2>Coursework</h2>
             </Tab>
             <Tab label="MIDTERMS" value="MIDTERMS">
-              <Table>
-                <TableHeader displaySelectAll={false}>
-                  <TableRow>
-                    <TableHeaderColumn>Course</TableHeaderColumn>
-                    <TableHeaderColumn>Percentage</TableHeaderColumn>
-                  </TableRow>
-                </TableHeader>
-                <TableBody displayRowCheckbox={false}>
-                  {this.state.data.midterms.map(({ course, percentage }, index) => (
-                    <TableRow key={index}>
-                      <TableRowColumn>{course}</TableRowColumn>
-                      <TableRowColumn>{percentage}%</TableRowColumn>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+              <Midterms credentials={this.props.credentials} />
             </Tab>
             <Tab label="ATTENDANCE" value="ATTENDANCE">
               <h2>Attendance</h2>
@@ -93,10 +46,6 @@ class Dashboard extends Component {
               <h2>Exams</h2>
             </Tab>
           </Tabs>
-        </div>
-        <br />
-        <div>
-          {this.state.data.loading ? <CircularProgress /> : null}
         </div>
         <div>
           <Snackbar
