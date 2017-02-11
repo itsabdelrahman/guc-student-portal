@@ -60,45 +60,52 @@ class Dashboard extends Component {
   render() {
     return (
       <div>
-        <Tabs
-          value={this.state.tabs.value}
-          onChange={this.handleTabChange}
-          >
-          <Tab label="COURSEWORK" value="COURSEWORK">
-            <h2>Coursework</h2>
-          </Tab>
-          <Tab label="MIDTERMS" value="MIDTERMS">
-            <Table>
-              <TableHeader displaySelectAll={false}>
-                <TableRow>
-                  <TableHeaderColumn>Course</TableHeaderColumn>
-                  <TableHeaderColumn>Percentage</TableHeaderColumn>
-                </TableRow>
-              </TableHeader>
-              <TableBody displayRowCheckbox={false}>
-                {this.state.data.loading ? <CircularProgress /> : null}
-                {this.state.data.midterms.map(({ course, percentage }, index) => (
-                  <TableRow key={index}>
-                    <TableRowColumn>{course}</TableRowColumn>
-                    <TableRowColumn>{percentage}%</TableRowColumn>
+        <div>
+          <Tabs
+            value={this.state.tabs.value}
+            onChange={this.handleTabChange}
+            >
+            <Tab label="COURSEWORK" value="COURSEWORK">
+              <h2>Coursework</h2>
+            </Tab>
+            <Tab label="MIDTERMS" value="MIDTERMS">
+              <Table>
+                <TableHeader displaySelectAll={false}>
+                  <TableRow>
+                    <TableHeaderColumn>Course</TableHeaderColumn>
+                    <TableHeaderColumn>Percentage</TableHeaderColumn>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </Tab>
-          <Tab label="ATTENDANCE" value="ATTENDANCE">
-            <h2>Attendance</h2>
-          </Tab>
-          <Tab label="EXAMS" value="EXAMS">
-            <h2>Exams</h2>
-          </Tab>
-        </Tabs>
-        <Snackbar
-          open={this.state.snackbar.open}
-          message={'Welcome, ' + this.props.credentials.username + '!'}
-          autoHideDuration={4000}
-          onRequestClose={this.handleSnackbarClose}
-          />
+                </TableHeader>
+                <TableBody displayRowCheckbox={false}>
+                  {this.state.data.midterms.map(({ course, percentage }, index) => (
+                    <TableRow key={index}>
+                      <TableRowColumn>{course}</TableRowColumn>
+                      <TableRowColumn>{percentage}%</TableRowColumn>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </Tab>
+            <Tab label="ATTENDANCE" value="ATTENDANCE">
+              <h2>Attendance</h2>
+            </Tab>
+            <Tab label="EXAMS" value="EXAMS">
+              <h2>Exams</h2>
+            </Tab>
+          </Tabs>
+        </div>
+        <br />
+        <div>
+          {this.state.data.loading ? <CircularProgress /> : null}
+        </div>
+        <div>
+          <Snackbar
+            open={this.state.snackbar.open}
+            message={'Welcome, ' + this.props.credentials.username + '!'}
+            autoHideDuration={4000}
+            onRequestClose={this.handleSnackbarClose}
+            />
+        </div>
       </div>
     );
   }
