@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import fetch from 'isomorphic-fetch';
-import { merge } from 'lodash';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import Snackbar from 'material-ui/Snackbar';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
@@ -35,12 +34,8 @@ class Dashboard extends Component {
     });
   }
 
-  setStateRecursive = (nextState) => {
-    this.setState(merge(this.state, nextState));
-  }
-
   fetchMidterms = () => {
-    this.setStateRecursive({ data: { loading: true } });
+    this.setState({ data: { ...this.state.data, loading: true } });
 
     const url = 'http://guc-api.herokuapp.com/api/midterms';
     const options = {
@@ -67,21 +62,20 @@ class Dashboard extends Component {
       <div>
         <Tabs
           value={this.state.tabs.value}
-          onChange={this.handleTabChange}>
+          onChange={this.handleTabChange}
+          >
           <Tab label="COURSEWORK" value="COURSEWORK">
             <h2>Coursework</h2>
           </Tab>
           <Tab label="MIDTERMS" value="MIDTERMS">
             <Table>
-              <TableHeader
-                displaySelectAll={false}>
+              <TableHeader displaySelectAll={false}>
                 <TableRow>
                   <TableHeaderColumn>Course</TableHeaderColumn>
                   <TableHeaderColumn>Percentage</TableHeaderColumn>
                 </TableRow>
               </TableHeader>
-              <TableBody
-                displayRowCheckbox={false}>
+              <TableBody displayRowCheckbox={false}>
                 {this.state.data.loading ? <CircularProgress /> : null}
                 {this.state.data.midterms.map(({ course, percentage }, index) => (
                   <TableRow key={index}>
@@ -103,7 +97,8 @@ class Dashboard extends Component {
           open={this.state.snackbar.open}
           message={'Welcome, ' + this.props.credentials.username + '!'}
           autoHideDuration={4000}
-          onRequestClose={this.handleSnackbarClose} />
+          onRequestClose={this.handleSnackbarClose}
+          />
       </div>
     );
   }
