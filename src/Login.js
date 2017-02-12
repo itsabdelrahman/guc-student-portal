@@ -22,7 +22,7 @@ class Login extends Component {
   login = () => {
     this.setState({ data: { loading: true } });
 
-    const url = 'http://guc-api.herokuapp.com/api/login';
+    const url = 'https://guc-api.herokuapp.com/api/login';
     const options = {
       headers: {
         'Authorization': `Basic ${btoa(this.state.credentials.username.concat(':').concat(this.state.credentials.password))}`
