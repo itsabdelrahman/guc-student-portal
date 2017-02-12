@@ -30,7 +30,7 @@ class Attendance extends Component {
   fetchAttendance = () => {
     this.setState({ data: { ...this.state.data, loading: true } });
 
-    const url = 'http://guc-api.herokuapp.com/api/attendance';
+    const url = 'https://guc-api.herokuapp.com/api/attendance';
     const options = {
       headers: {
         'Authorization': `Basic ${btoa(this.props.credentials.username.concat(':').concat(this.props.credentials.password))}`
