@@ -35,7 +35,7 @@ class Dashboard extends Component {
   };
 
   render() {
-    return (
+    return (this.props.credentials.username && this.props.credentials.password) ? (
       <div>
         <div>
           <Tabs
@@ -65,7 +65,7 @@ class Dashboard extends Component {
           />
         </div>
       </div>
-    );
+    ) : null;
   }
 }
 
