@@ -20,6 +20,12 @@ class Dashboard extends Component {
     }
   }
 
+  componentWillMount() {
+    if (!this.props.credentials.username || !this.props.credentials.password) {
+      this.props.router.push('/');
+    }
+  }
+
   handleTabChange = (value) => {
     this.setState({ tabs: { value } });
   };
@@ -35,7 +41,7 @@ class Dashboard extends Component {
           <Tabs
             value={this.state.tabs.value}
             onChange={this.handleTabChange}
-            >
+          >
             <Tab label="COURSEWORK" value="COURSEWORK">
               <Coursework credentials={this.props.credentials} />
             </Tab>
@@ -56,7 +62,7 @@ class Dashboard extends Component {
             message={'Welcome, ' + this.props.credentials.username + '!'}
             autoHideDuration={4000}
             onRequestClose={this.handleSnackbarClose}
-            />
+          />
         </div>
       </div>
     );
