@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import fetch from 'isomorphic-fetch';
+import moment from 'moment';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 import CircularProgress from 'material-ui/CircularProgress';
 import './App.css';
@@ -50,20 +51,23 @@ class Exams extends Component {
             <TableHeader displaySelectAll={false}>
               <TableRow>
                 <TableHeaderColumn>Course</TableHeaderColumn>
-                <TableHeaderColumn>Datetime</TableHeaderColumn>
+                <TableHeaderColumn>Date</TableHeaderColumn>
+                <TableHeaderColumn>Time</TableHeaderColumn>
                 <TableHeaderColumn>Venue</TableHeaderColumn>
                 <TableHeaderColumn>Seat</TableHeaderColumn>
               </TableRow>
             </TableHeader>
             <TableBody displayRowCheckbox={false}>
-              {this.state.data.exams.map(({ course, dateTime, venue, seat }, index) => (
-                <TableRow key={index}>
+              {this.state.data.exams.map(({ course, dateTime, venue, seat }, index) => {
+                const dateTimeUTC = moment(new Date(dateTime)).utc();
+                return (<TableRow key={index}>
                   <TableRowColumn>{course}</TableRowColumn>
-                  <TableRowColumn>{new Date(dateTime).toUTCString()}</TableRowColumn>
+                  <TableRowColumn>{dateTimeUTC.format('dddd, MMMM Do YYYY')}</TableRowColumn>
+                  <TableRowColumn>{dateTimeUTC.format('LT')}</TableRowColumn>
                   <TableRowColumn>{venue}</TableRowColumn>
                   <TableRowColumn>{seat}</TableRowColumn>
-                </TableRow>
-              ))}
+                </TableRow>);
+              })}
             </TableBody>
           </Table>
         </div>

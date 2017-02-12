@@ -69,7 +69,7 @@ class Coursework extends Component {
                         {grades.map(({ module, point, maxPoint }, index) => (
                           <TableRow key={index}>
                             <TableRowColumn>{module}</TableRowColumn>
-                            <TableRowColumn>{point} out of {maxPoint}</TableRowColumn>
+                            <TableRowColumn>{point} / {maxPoint}</TableRowColumn>
                           </TableRow>
                         ))}
                       </TableBody>

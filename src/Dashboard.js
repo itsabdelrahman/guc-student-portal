@@ -54,7 +54,7 @@ class Dashboard extends Component {
           <Snackbar
             open={this.state.snackbar.open}
             message={'Welcome, ' + this.props.credentials.username + '!'}
-            autoHideDuration={5000}
+            autoHideDuration={4000}
             onRequestClose={this.handleSnackbarClose}
             />
         </div>
