@@ -3,6 +3,7 @@ import fetch from 'isomorphic-fetch';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import CircularProgress from 'material-ui/CircularProgress';
+import Snackbar from 'material-ui/Snackbar';
 
 class Login extends Component {
   constructor(props) {
@@ -15,6 +16,9 @@ class Login extends Component {
       },
       data: {
         loading: false
+      },
+      snackbar: {
+        open: false
       }
     };
   }
@@ -32,13 +36,21 @@ class Login extends Component {
     fetch(url, options)
       .then(res => res.json())
       .then(json => {
+        this.setState({ data: { loading: false } });
+
         if (json.data.authorized) {
           this.props.setCredentials(this.state.credentials);
           this.props.router.push('/dashboard');
+        } else {
+          this.setState({ snackbar: { open: true } });
         }
       })
       .catch(err => console.error(err));
   }
+
+  handleSnackbarClose = () => {
+    this.setState({ snackbar: { open: false } });
+  };
 
   render() {
     return (
@@ -48,7 +60,7 @@ class Login extends Component {
             floatingLabelText="Username"
             hintText="john.doe"
             onChange={event => this.setState({ credentials: { ...this.state.credentials, username: event.target.value } })}
-            />
+          />
         </div>
         <div>
           <TextField
@@ -56,7 +68,7 @@ class Login extends Component {
             floatingLabelText="Password"
             hintText="12345"
             onChange={event => this.setState({ credentials: { ...this.state.credentials, password: event.target.value } })}
-            />
+          />
         </div>
         <br />
         <div>
@@ -65,6 +77,14 @@ class Login extends Component {
         <br />
         <div>
           {this.state.data.loading ? <CircularProgress /> : null}
+        </div>
+        <div>
+          <Snackbar
+            open={this.state.snackbar.open}
+            message={'Invalid credentials!'}
+            autoHideDuration={4000}
+            onRequestClose={this.handleSnackbarClose}
+          />
         </div>
       </div>
     );
