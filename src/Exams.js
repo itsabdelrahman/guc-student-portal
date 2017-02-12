@@ -31,7 +31,7 @@ class Exams extends Component {
   fetchExams = () => {
     this.setState({ data: { ...this.state.data, loading: true } });
 
-    const url = 'http://guc-api.herokuapp.com/api/exams';
+    const url = 'https://guc-api.herokuapp.com/api/exams';
     const options = {
       headers: {
         'Authorization': `Basic ${btoa(this.props.credentials.username.concat(':').concat(this.props.credentials.password))}`
